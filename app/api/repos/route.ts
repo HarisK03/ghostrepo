@@ -61,7 +61,7 @@ export async function GET() {
 		authStrategy: createAppAuth,
 		auth: {
 			appId: process.env.GITHUB_APP_ID!,
-			privateKey: process.env.GITHUB_PRIVATE_KEY!,
+			privateKey: process.env.GITHUB_PRIVATE_KEY!.replace(/\\n/g, "\n"),
 		},
 	});
 
