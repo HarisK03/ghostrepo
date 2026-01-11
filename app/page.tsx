@@ -56,7 +56,7 @@ export default function Home() {
 
 					{/* Dashboard - link to /dashboard */}
 					<Link
-						href="/dashboard"
+						href="/api/github/login"
 						className="px-4 py-1 rounded-full transition-colors duration-300 hover:bg-neutral-900/25 cursor-pointer"
 					>
 						Dashboard

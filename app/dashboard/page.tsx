@@ -146,7 +146,7 @@ export default function DemoDashboard() {
 			owner: repo.owner,
 			repo: repo.name,
 			description: repo.description,
-			share_url: `http://localhost:3000/share/${token}`,
+			share_url: `https://ghostrepo.vercel.app/share/${token}`,
 			shared: true,
 			status: "live",
 			pinned: repo.pinned,
@@ -273,7 +273,7 @@ export default function DemoDashboard() {
 						description:
 							r.description?.trim() || "No description provided",
 						shareUrl: shared
-							? `http://localhost:3000/share/${shared.share_token}`
+							? `https://ghostrepo.vercel.app/share/${shared.share_token}`
 							: null,
 						share_token: shared?.share_token ?? null,
 						shared: shared?.shared ?? false,
