@@ -85,7 +85,14 @@ export default function SharedRepo() {
 	const codeMirrorRef = useRef<EditorView | null>(null);
 
 	const emailFromQuery = searchParams?.get("email") || "";
-	const largeFontTheme = EditorView.theme({ "&": { fontSize: "16px" } });
+	const wrapAt80Theme = EditorView.theme({
+		"&": { fontSize: "16px" },
+		".cm-content": {
+			maxWidth: "80ch", // wrap lines at 80 characters
+			whiteSpace: "pre-wrap", // wrap long lines
+			overflowWrap: "break-word",
+		},
+	});
 	const sharedBy = repoName.split("/")[0] || "Unknown";
 
 	// ---------- Helpers ----------
@@ -535,7 +542,7 @@ export default function SharedRepo() {
 										selectedFileName
 											? getLanguageMode(selectedFileName)
 											: null,
-										largeFontTheme,
+										wrapAt80Theme,
 									].filter(Boolean) as any
 								}
 								basicSetup={{ lineNumbers: true }}
