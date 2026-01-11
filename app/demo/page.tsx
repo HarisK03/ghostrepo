@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import Link from "next/link";
 import {
 	FiSearch,
@@ -19,7 +19,20 @@ import { FaArrowLeft } from "react-icons/fa";
 
 const AUTO_PIN_CLICK_THRESHOLD = 150;
 
-const initialRepos = Array.from({ length: 10 }).map((_, i) => ({
+interface Repo {
+	id: number;
+	name: string;
+	githubUrl: string;
+	description: string;
+	shareUrl: string;
+	shared: boolean;
+	status: "live" | "expired";
+	clicks: number;
+	viewers: number;
+	pinned: boolean;
+}
+
+const initialRepos: Repo[] = Array.from({ length: 10 }).map((_, i) => ({
 	id: i + 1,
 	name: `ghostrepo-project-${i + 1}`,
 	githubUrl: `https://github.com/ghostrepo/ghostrepo-project-${i + 1}`,
@@ -35,12 +48,12 @@ const initialRepos = Array.from({ length: 10 }).map((_, i) => ({
 export default function DemoDashboard() {
 	const [query, setQuery] = useState("");
 	const [sharedQuery, setSharedQuery] = useState("");
-	const [repos, setRepos] = useState([]);
+	const [repos, setRepos] = useState<Repo[]>([]);
 	const [settingsOpen, setSettingsOpen] = useState(false);
-	const [activeRepo, setActiveRepo] = useState(null);
+	const [activeRepo, setActiveRepo] = useState<Repo | null>(null);
 
 	/* Handlers */
-	const openSettings = (repo) => {
+	const openSettings = (repo: Repo) => {
 		setActiveRepo(repo);
 		setSettingsOpen(true);
 	};
@@ -50,14 +63,16 @@ export default function DemoDashboard() {
 		setActiveRepo(null);
 	};
 
-	const handleSaveSettings = (updatedRepo) => {
+	const handleSaveSettings = (updatedRepo: any) => {
 		setRepos((prev) =>
-			prev.map((r) => (r.id === updatedRepo.id ? updatedRepo : r))
+			prev.map((r) =>
+				r.id === updatedRepo.id ? { ...r, ...updatedRepo } : r
+			)
 		);
 		toast.success("Settings saved!");
 	};
 
-	const handleShareRepo = (repo) => {
+	const handleShareRepo = (repo: Repo) => {
 		setRepos((prev) =>
 			prev.map((r) =>
 				r.id === repo.id
@@ -70,7 +85,7 @@ export default function DemoDashboard() {
 		toast.success("Repository shared! Link copied to clipboard.");
 	};
 
-	const handleUnshareRepo = (repoId) => {
+	const handleUnshareRepo = (repoId: number) => {
 		setRepos((prev) =>
 			prev.map((r) =>
 				r.id === repoId ? { ...r, shared: false, status: "expired" } : r
@@ -79,7 +94,7 @@ export default function DemoDashboard() {
 		toast.success("Repository unshared!");
 	};
 
-	const togglePin = (id) => {
+	const togglePin = (id: number) => {
 		setRepos((prev) =>
 			prev.map((repo) =>
 				repo.id === id ? { ...repo, pinned: !repo.pinned } : repo
@@ -104,7 +119,7 @@ export default function DemoDashboard() {
 
 	/* Persist Pins */
 	useEffect(() => {
-		const pins = {};
+		const pins: { [key: number]: boolean } = {};
 		repos.forEach((r) => (pins[r.id] = r.pinned));
 		localStorage.setItem("ghostrepo:pins", JSON.stringify(pins));
 	}, [repos]);
@@ -358,12 +373,14 @@ export default function DemoDashboard() {
 			</div>
 
 			{/* Settings Modal */}
-			<RepoSettingsModal
-				open={settingsOpen}
-				onClose={closeSettings}
-				repo={activeRepo}
-				onSave={handleSaveSettings}
-			/>
+			{activeRepo && (
+				<RepoSettingsModal
+					open={settingsOpen}
+					onClose={closeSettings}
+					repo={activeRepo}
+					onSave={handleSaveSettings}
+				/>
+			)}
 
 			<style jsx global>{`
 				.no-scrollbar::-webkit-scrollbar {
@@ -379,7 +396,15 @@ export default function DemoDashboard() {
 }
 
 /* Square stat card */
-function StatCard({ title, value, icon }) {
+function StatCard({
+	title,
+	value,
+	icon,
+}: {
+	title: string;
+	value: string | number;
+	icon: React.ReactNode;
+}) {
 	return (
 		<div className="aspect-square p-4 rounded-xl bg-white/5 border border-white/10 text-center flex flex-col items-center justify-center gap-2">
 			<div className="text-3xl bg-amber-600/10 p-3 rounded-xl text-[#ed8c45]">

@@ -99,7 +99,7 @@ export default function DemoDashboard() {
 					price: updatedRepo.price ?? 0, // <-- ADD THIS
 					installation_id: updatedRepo.installation_id,
 				},
-				{ onConflict: ["github_repo_id"] }
+				{ onConflict: "github_repo_id" }
 			);
 
 			if (error) throw error;
@@ -157,7 +157,7 @@ export default function DemoDashboard() {
 
 		const { error } = await supabase
 			.from("shared_repos")
-			.upsert(payload, { onConflict: ["github_repo_id"] });
+			.upsert(payload, { onConflict: "github_repo_id" });
 
 		if (error) {
 			toast.error("Failed to share repo: " + error.message);
@@ -230,7 +230,7 @@ export default function DemoDashboard() {
 				repo: repo.name,
 				share_url: repo.shareUrl,
 			},
-			{ onConflict: ["github_repo_id"] }
+			{ onConflict: "github_repo_id" }
 		);
 	};
 

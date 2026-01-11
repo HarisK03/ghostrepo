@@ -54,7 +54,7 @@ export default function RepoAnalytics() {
 	);
 }
 
-function Stat({ label, value }) {
+function Stat({ label, value }: { label: string; value: string }) {
 	return (
 		<div className="aspect-square bg-white/5 border border-white/10 rounded-xl flex flex-col items-center justify-center">
 			<p className="text-sm text-gray-400">{label}</p>

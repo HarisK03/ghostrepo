@@ -530,12 +530,14 @@ export default function SharedRepo() {
 								height="100%"
 								theme={oneDark}
 								editable={false}
-								extensions={[
-									selectedFileName
-										? getLanguageMode(selectedFileName)
-										: null,
-									largeFontTheme,
-								].filter(Boolean)}
+								extensions={
+									[
+										selectedFileName
+											? getLanguageMode(selectedFileName)
+											: null,
+										largeFontTheme,
+									].filter(Boolean) as any
+								}
 								basicSetup={{ lineNumbers: true }}
 								onCreateEditor={(view) => {
 									codeMirrorRef.current = view;
