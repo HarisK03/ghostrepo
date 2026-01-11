@@ -37,7 +37,7 @@ const initialRepos: Repo[] = Array.from({ length: 10 }).map((_, i) => ({
 	name: `ghostrepo-project-${i + 1}`,
 	githubUrl: `https://github.com/ghostrepo/ghostrepo-project-${i + 1}`,
 	description: "Private repository shared securely via GhostRepo",
-	shareUrl: `http://localhost:3000/share/FiPmwkcaVAq2`,
+	shareUrl: `https://ghostrepo.vercel.app/share/z7eeI1grk5gx`,
 	shared: i % 2 === 0, // some repos start shared
 	status: i % 3 === 0 ? "expired" : "live", // some repos are expired
 	clicks: Math.floor(Math.random() * 200) + 20,
