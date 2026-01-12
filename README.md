@@ -25,6 +25,19 @@
 
 ---
 
+## 💻 Screenshots
+
+### Dashboard
+![Dashboard](https://github.com/HarisK03/ghostrepo/blob/readme/1.png)
+
+### Repository Sharing
+![Repository Sharing](https://github.com/HarisK03/ghostrepo/blob/readme/2.png)
+
+### Analytics
+![Analytics](https://github.com/HarisK03/ghostrepo/blob/readme/3.png)
+
+---
+
 ## 💡 Use Cases
 
 - Private code reviews.
