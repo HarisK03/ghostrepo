@@ -27,13 +27,13 @@
 
 ## 💻 Screenshots
 
-### Dashboard
+### Home
 ![Dashboard](https://github.com/HarisK03/ghostrepo/blob/readme/1.png)
 
-### Repository Sharing
+### Dashboard
 ![Repository Sharing](https://github.com/HarisK03/ghostrepo/blob/readme/2.png)
 
-### Analytics
+### Code Viewer
 ![Analytics](https://github.com/HarisK03/ghostrepo/blob/readme/3.png)
 
 ---
